@@ -64,12 +64,14 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
+    AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: '30'
+    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: '5'
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
     # yamllint enable rule:line-length
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    PYTHONPATH: /opt/airflow/finance_data_crawler
+    PYTHONPATH: /opt/airflow/finance_data_crawler:/opt/airflow/etl_pipeline
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
@@ -82,6 +84,9 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-data-crawler:/opt/airflow/finance_data_crawler
     - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-data-crawler/orchestration:/opt/airflow/dags/finance_crawler_dags
+    - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/orchestration:/opt/airflow/dags/etl_pipeline_dags
+    - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/config:/opt/airflow/dags/etl_pipeline_dags/src/config
+    - /Users/tuongnguyen/Desktop/projects/etl-pipeline:/opt/airflow/etl_pipeline
   networks:
     - default
     - finance_network
@@ -345,4 +350,3 @@ volumes:
 networks:
   finance_network:
     external: true
-
