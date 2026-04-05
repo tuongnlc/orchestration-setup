@@ -85,7 +85,7 @@ x-airflow-common:
     - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-data-crawler:/opt/airflow/finance_data_crawler
     - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-data-crawler/orchestration:/opt/airflow/dags/finance_crawler_dags
     - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/orchestration:/opt/airflow/dags/etl_pipeline_dags
-    - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/config:/opt/airflow/dags/etl_pipeline_dags/src/config
+    - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/configs:/opt/airflow/dags/etl_pipeline_dags/src/config
     - /Users/tuongnguyen/Desktop/projects/etl-pipeline:/opt/airflow/etl_pipeline
   networks:
     - default
