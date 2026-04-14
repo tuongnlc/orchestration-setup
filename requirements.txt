@@ -4,3 +4,4 @@ adbc-driver-postgresql==1.10.0
 pyarrow==23.0.1
 google-cloud-bigquery==3.40.1
 dacite==1.9.2
+apache-airflow-providers-google==21.1.0
