@@ -1,19 +1,20 @@
 x-kafka-common: &kafka-common
-  image: apache/kafka:latest
+  image: apache/kafka:3.7.1
   environment:
     # Với Apache Image, dùng KAFKA_ thay vì KAFKA_CFG_
     KAFKA_NODE_ID: 1
     KAFKA_PROCESS_ROLES: broker,controller
-    KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
-    KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
-    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+    KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+    KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://0.0.0.0:9094
+    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://127.0.0.1:9094
+    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT 
     KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
     KAFKA_LOG_RETENTION_HOURS: 168
     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    CLUSTER_ID: '4L6TargetS969Y8NW6at_kA'
   volumes:
     - kafka-data:/var/lib/kafka/data # Lưu ý path của Apache khác Bitnami
   networks:
@@ -30,8 +31,8 @@ services:
     <<: *kafka-common
     ports:
       - "9092:9092"
+      - "9094:9094"
     profiles: [kafka, full]
-    # XÓA depends_on kafka-ui ở đây
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -46,7 +47,7 @@ services:
       - finance_network
     depends_on:
       kafka:
-        condition: service_healthy # UI đợi Kafka mới đúng logic
+        condition: service_healthy 
     profiles: [kafka-ui, full, monitoring]
 
   schema-registry:
