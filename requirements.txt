@@ -5,3 +5,5 @@ pyarrow==23.0.1
 google-cloud-bigquery==3.40.1
 dacite==1.9.2
 apache-airflow-providers-google==21.1.0
+newspaper4k==0.9.5
+newspaper4k[nlp]==0.9.5
