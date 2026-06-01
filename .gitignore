@@ -219,3 +219,10 @@ override.tf.json
 *.tfvars
 *.tfvars.json
 *.tfplan
+
+# Logs
+*.log
+
+# Airflow logs
+logs/
+.logs/
