@@ -120,6 +120,9 @@ services:
     image: redis:7.2-bookworm
     expose:
       - 6379
+    networks:
+      - default
+      - finance_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
