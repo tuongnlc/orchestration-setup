@@ -63,7 +63,6 @@ x-airflow-common:
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-    AIRFLOW__CORE__HOSTNAME_CALLABLE: socket.gethostname
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
     AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: '30'
     AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: '5'
@@ -178,7 +177,6 @@ services:
 
   airflow-worker:
     <<: *airflow-common
-    hostname: airflow-worker
     command: celery worker
     healthcheck:
       # yamllint disable rule:line-length
