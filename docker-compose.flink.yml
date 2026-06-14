@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  flink-jobmanager:
+    image: flink:latest
+    container_name: flink-jobmanager
+    ports:
+      - "8084:8081"  # <--- Thay đổi ở đây: Map cổng 8084 của máy bạn vào cổng 8081 của container
+    command: jobmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+    networks:
+      - finance_network
+
+  flink-taskmanager:
+    image: flink:latest
+    container_name: flink-taskmanager
+    depends_on:
+      - flink-jobmanager
+    command: taskmanager
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: flink-jobmanager
+        taskmanager.numberOfTaskSlots: 2
+    networks:
+      - finance_network
+
+networks:
+  finance_network:
+    external: true

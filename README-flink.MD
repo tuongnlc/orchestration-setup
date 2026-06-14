@@ -1,0 +1,1 @@
+docker compose -f docker-compose.flink.yml up -d
