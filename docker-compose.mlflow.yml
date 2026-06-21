@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.mlflow
-    image: ghcr.io/mlflow/mlflow:v2.13.0
+    image: ghcr.io/mlflow/mlflow:v3.14.0
     container_name: mlflow-server
     restart: unless-stopped
     ports:
@@ -19,7 +19,9 @@ services:
     command: >
       mlflow server 
       --backend-store-uri postgresql://${POSTGRES_USER_MLFLOW}:${POSTGRES_PASSWORD_MLFLOW}@${POSTGRES_HOST_MLFLOW}:${POSTGRES_PORT_MLFLOW}/${POSTGRES_DB_MLFLOW}
-      --default-artifact-root /mlflow/artifacts
+      --default-artifact-root mlflow-artifacts:/
+      --artifacts-destination /mlflow/artifacts
+      --serve-artifacts
       --host 0.0.0.0
       --port 5000
 
