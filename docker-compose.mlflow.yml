@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mlflow-server:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.mlflow
+    image: ghcr.io/mlflow/mlflow:v2.13.0
+    container_name: mlflow-server
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow_artifacts:/mlflow/artifacts
+    networks:
+      - finance_network
+    command: >
+      mlflow server 
+      --backend-store-uri postgresql://${POSTGRES_USER_MLFLOW}:${POSTGRES_PASSWORD_MLFLOW}@${POSTGRES_HOST_MLFLOW}:${POSTGRES_PORT_MLFLOW}/${POSTGRES_DB_MLFLOW}
+      --default-artifact-root /mlflow/artifacts
+      --host 0.0.0.0
+      --port 5000
+
+volumes:
+  mlflow_artifacts:
+
+networks:
+  finance_network:
+    external: true
+    name: finance_network
