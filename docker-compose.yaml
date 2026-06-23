@@ -71,7 +71,7 @@ x-airflow-common:
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
     # yamllint enable rule:line-length
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
-    PYTHONPATH: /opt/airflow/finance_data_crawler:/opt/airflow/etl_pipeline
+    PYTHONPATH: /opt/airflow/finance_data_crawler:/opt/airflow/etl_pipeline:/opt/airflow/finance_ai_engineer
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
@@ -87,6 +87,9 @@ x-airflow-common:
     - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/orchestration:/opt/airflow/dags/etl_pipeline_dags
     - /Users/tuongnguyen/Desktop/projects/etl-pipeline/src/configs:/opt/airflow/dags/etl_pipeline_dags/src/config
     - /Users/tuongnguyen/Desktop/projects/etl-pipeline:/opt/airflow/etl_pipeline
+    # finance-ai-engineer
+    - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-ai-engineer:/opt/airflow/finance_ai_engineer
+    - /Users/tuongnguyen/Desktop/projects/finance_ai_platform/finance-ai-engineer/src/applications/topic_modeling/orchestration:/opt/airflow/dags/finance_ai_engineer_topic_modeling
   networks:
     - default
     - finance_network
