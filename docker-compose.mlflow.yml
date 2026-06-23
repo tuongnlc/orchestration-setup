@@ -1,7 +1,6 @@
-version: '3.8'
-
 services:
   mlflow-server:
+    init: true
     env_file:
       - .env
     build:
@@ -10,6 +9,9 @@ services:
     image: ghcr.io/mlflow/mlflow:v3.14.0
     container_name: mlflow-server
     restart: unless-stopped
+    mem_limit: 512m
+    cpus: 0.50
+    pids_limit: 256
     ports:
       - "5000:5000"
     volumes:
@@ -24,6 +26,7 @@ services:
       --serve-artifacts
       --host 0.0.0.0
       --port 5000
+      --workers 1
 
 volumes:
   mlflow_artifacts:
