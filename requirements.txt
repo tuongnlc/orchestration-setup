@@ -10,3 +10,5 @@ newspaper4k[nlp]==0.9.5
 qdrant-client==1.18.0
 apache-airflow-providers-postgres==6.6.3
 langchain-text-splitters==1.1.2
+umap-learn>=0.5.12
+mlflow>=3.14.0

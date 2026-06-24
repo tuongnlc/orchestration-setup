@@ -6,12 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.mlflow
-    image: ghcr.io/mlflow/mlflow:v3.14.0
+    image: orchestration-setup/mlflow:3.14.0
     container_name: mlflow-server
     restart: unless-stopped
-    mem_limit: 512m
-    cpus: 0.50
-    pids_limit: 256
+    mem_limit: 1g
+    cpus: 1
+    pids_limit: 512
     ports:
       - "5000:5000"
     volumes:
@@ -27,6 +27,8 @@ services:
       --host 0.0.0.0
       --port 5000
       --workers 1
+      --allowed-hosts "*"
+      --cors-allowed-origins "*"
 
 volumes:
   mlflow_artifacts:
