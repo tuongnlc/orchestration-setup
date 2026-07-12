@@ -13,3 +13,4 @@ langchain-text-splitters==1.1.2
 umap-learn>=0.5.12
 mlflow>=3.14.0
 langchain-google-genai>=4.2.6
+unidecode>=1.4.0
