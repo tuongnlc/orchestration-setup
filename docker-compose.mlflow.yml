@@ -32,6 +32,8 @@ services:
 
 volumes:
   mlflow_artifacts:
+    external: true
+    name: mlflow_artifacts
 
 networks:
   finance_network:

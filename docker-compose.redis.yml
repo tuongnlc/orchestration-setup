@@ -28,9 +28,11 @@ services:
 
 volumes:
   redis_data:
-    driver: local
+    external: true
+    name: redis_data
   redisinsight_data:
-    driver: local
+    external: true
+    name: redisinsight_data
 
 networks:
   finance_network:

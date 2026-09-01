@@ -106,7 +106,11 @@ services:
 
 volumes:
   kafka-1-data:
+    external: true
+    name: kafka-1-data
   kafka-2-data:
+    external: true
+    name: kafka-2-data
 
 networks:
   finance_network:
